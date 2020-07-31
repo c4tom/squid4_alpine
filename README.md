@@ -16,6 +16,12 @@ configure options:  '--build=x86_64-alpine-linux-musl' '--host=x86_64-alpine-lin
 ```sh
 
 docker run -e SQUID_USERNAME=foo -e SQUID_PASSWORD=bar -p 3128:3128 cahato/squid4_alpine:3.11_3.12
+
+# if you desired mount container /etc/squid, 
+# create this folder into your host /home/docker/squid4-docker/etc
+mkdir -p /home/docker/squid4-docker/etc
+
+docker run -d -it --name squid --restart always -e SQUID_USERNAME=foo -e SQUID_PASSWORD=bar -v /tmp/squid/logs:/var/log/squid --mount type=volume,dst=/etc/squid,volume-driver=local,volume-opt=type=none,volume-opt=o=bind,volume-opt=device=/home/docker/squid4-docker/etc -p 3128:3128/tcp cahato/squid4_alpine:4.11_3.12
 ```
 
 ## Environment variables
