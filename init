@@ -1,0 +1,4 @@
+#!/bin/sh
+echo "I am `whoami`"
+htpasswd -bc /.passwd "${SQUID_USERNAME}" "${SQUID_PASSWORD}"
+exec squid --foreground
